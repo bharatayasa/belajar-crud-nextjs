@@ -1,6 +1,5 @@
 'use client'
 import { Post } from '@prisma/client'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import React from 'react'
@@ -12,7 +11,7 @@ interface Props {
 function Item({post}: Props) {
     const router = useRouter()
     const handleDelete = async (id:number) => {
-        await fetch('/api/post?id=' + id, {
+        await fetch('/api/post?id='+id, {
             method: 'DELETE',
         })
         router.refresh()
@@ -27,9 +26,7 @@ function Item({post}: Props) {
             </div>
 
                 <div className="flex gap-5 mt-10">
-                    <Link href={`/update/${post.id}`}>
-                        <button className="bg-sky-500 py-3 px-5 rounded-md hover:bg-sky-600">Update</button>
-                    </Link>
+                    <button onClick={() => router.push(`/update/${post.id}`)} className="bg-sky-500 py-3 px-5 rounded-md hover:bg-sky-600">Update</button>
                     <button onClick={()=>handleDelete(post.id)} className="bg-pink-500 py-3 px-5 rounded-md hover:bg-pink-600">Delete</button>
             </div>
         </div>
